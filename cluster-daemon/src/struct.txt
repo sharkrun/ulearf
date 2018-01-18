@@ -1,0 +1,115 @@
+1. 集群信息
+    /ufleet/cluster/clustermanages/<cluster_name>/cluster_info   ###《cluster》模块创建和修改
+                  {'auth_way': '',
+                   'creater': '',
+                   'create_time': datetime,
+                   'cluster_name': "",
+                   'node_num': 0,
+                   'master_ip': [],
+                   'node_list': [],
+                  # 'member': [],
+                   'cluster_type': 'accept',
+                  # 'master_status': 'running',
+                  # 'apply_num': 0,
+                  # 'gws': []
+                   }
+    /ufleet/cluster/clustermanages/<cluster_name>/cluster_status  #### 只有《cluster_daemon》检查和修改
+             "running"
+
+    /ufleet/cluster/clustermanages/<cluster_name>/apply_num #### 只有《cluster_daemon》检查和修改
+             2
+
+    /ufleet/cluster/clustermanages/<cluster_name>/gws   ### 只有《workspace》模块可以修改
+            [{'group': '', 'workspace': []]
+
+
+
+
+    /ufleet/cluster/clustermanages/<cluster_name>/auth_info
+                   {'auth_way': auth_way,
+                    'auth_data': cluster_info.get('cacerts', ''),
+                    'server': server,
+                    'username': '',
+                    'userpwd': '',
+                    'cert_data': cluster_info.get('apiservercerts', ''),
+                    'client_key': cluster_info.get('apiserverkey', ''),
+                    'auth_url': '',
+                    'cluster_name': cluster_info.get('cluster_name', ''),
+                    'host_name': cluster_info.get('hostname', ''),
+
+                    }
+
+2. 主机信息
+    /ufleet/cluster/clusternodes/<cluster_name>/<node_name>  ##只有《cluster_daemon》检查和修改
+                    {
+                     'cluster_name': master_info['ClusterName'],
+                     'name': '',
+                     'system': '',
+                     'docker_version': '',
+                     'status': 'pending',
+                     'type': 'master',
+                     'pod_num': 0,
+                     'ip': master_info.get('HostIP', ''),
+                     'cpu': '',
+                     'memory': '',
+                     'label': '',
+                     'disk': '',
+                     'unschedulable': '',
+                     'slave': '',
+                     'datetime': date_now
+                     }
+    /ufleet/cluster/masternodedir/<node_name> ## 不能修改
+                  {
+                   'creater': creater,
+                   'datetime': date_now,
+                   'cluster_name': master_info.get('ClusterName', ''),
+                   'node_type': 'Master',
+                   'host_ip': master_info.get('HostIP', ''),
+                   'host_name': master_info.get('HostName', ''),
+                   'username': master_info.get('UserName', ''),
+                   'userpwd': master_info.get('UserPwd', ''),
+                   'prikey': master_info.get('Prikey', ''),
+                   'pripwd': master_info.get('PriPwd')
+                  }
+
+3. nodemonitor
+    /ufleet/cluster/nodemonitor/<node_name>/<num>
+                   {
+                    'datetime': self.node_time(r),
+                    'anlytime': date_now,
+                    'anlycpu': self.cpu_anly(r),
+                    'mem': self.mem_anly(r),
+                    'disk': self.disk_anly(r),
+                    'network': self.network_anly(r),
+                    'num': self.num
+                    }
+
+4. workspace
+   /ufleet/cluster/workspace/<workspace_name>  ### 只有《cluster.workspace》创建和修改
+                  {
+                   'creater': creater,
+                   'datetime': date_now,
+                   'group': w.get('workspacegroup_name'),
+                   'cluster_name': w.get('cluster_name'),
+                   'name': w.get('workspace_name'),
+                   'cpu': w.get('resource_cpu'),
+                   'mem': w.get('resource_mem'),
+                   'pod_cpu_min': w.get('pod_cpu_min'),
+                   'pod_cpu_max': w.get('pod_cpu_max'),
+                   'pod_mem_min': w.get('pod_mem_min'),
+                   'pod_mem_max': w.get('pod_mem_max'),
+                   'c_cpu_default': w.get('c_cpu_default'),
+                   'c_mem_default': w.get('c_mem_default'),
+                   'c_cpu_min': w.get('c_cpu_min'),
+                   'c_cpu_max': w.get('c_cpu_max'),
+                   'c_mem_min': w.get('c_mem_min'),
+                   'c_mem_max': w.get('c_mem_max')
+                   }
+
+4. workspacegroup
+    /ufleet/cluster/workspacegroup/<workspacegroup_name>/<workspace_name>  ### 《cluster.workspace》创建， 不能修改
+                    {
+                      'cluster_name': w.get('cluster_name'),
+                      'workspace_name': w.get('workspace_name'),
+                      'wgroup_name': 'workspacegroup_name'
+                    }

@@ -1,0 +1,29 @@
+node {
+    sh 'rm -rf *'
+    //代码检出
+    stage('Check out'){
+            sh 'rm -rf *'
+            checkout scm
+    }
+    // 镜像中代码构建
+    stage('Build'){
+        docker.image('192.168.18.250:5002/ufleet-build/python-ubuntu:build.3').inside {
+            sh 'chmod 775 *.sh'
+            sh './build.sh'
+            sh 'echo "build end"'
+            sh 'ls -l'
+        }
+    }
+    // 编译镜像并push到仓库
+    stage('Image Build And Push'){
+
+        def imageTag = "v1.8.2.${BUILD_NUMBER}"
+        def dockerfile = readFile 'Dockerfile'
+        dockerfile = dockerfile.replaceFirst(/# ENV MODULE_VERSION #MODULE_VERSION#/, "ENV MODULE_VERSION ${imageTag}")
+        writeFile file: 'Dockerfile', text: dockerfile
+
+        docker.withRegistry('http://192.168.18.250:5002', '18.250-registry-admin') {
+            docker.build('192.168.18.250:5002/ufleet/cluster-daemon:' + imageTag).push()
+        }
+    }
+}

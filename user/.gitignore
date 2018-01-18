@@ -1,0 +1,7 @@
+*.pyc
+*.pyo
+*.log
+*.tmp
+*.exe
+nohup.out
+cicd_user

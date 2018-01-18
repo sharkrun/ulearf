@@ -1,0 +1,9 @@
+*.pyc
+*.log
+*.prefs
+temp.py
+/test/*
+*.tar
+*.dockerignore
+
+/.cache/

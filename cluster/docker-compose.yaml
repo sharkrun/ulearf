@@ -1,0 +1,38 @@
+version: "2"
+services:
+  ufleet-cluster:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mdb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - store_data:/opt/source/trace \
+    ports:
+      - "8885:8885"
+    environment:
+      - CURRENT_HOST=192.168.3.38:8885
+      - ETCD_HOST=192.168.0.151
+      - ETCD_PORT=32379
+      - ETCD_ALLOW_RECONNECT=0
+      - ETCD_PROTOCOL=http
+      - DEPLOY_SERVER_ADDR=192.168.0.151:8883
+      - USER_SERVER_ADDR=192.168.0.151:8881
+      - CLUSTER_AUTH_INFO_HOST=192.168.0.151
+      - CLUSTER_AUTH_INFO_PORT=8886
+      - UFLOW_HOST=192.168.0.151:8882
+      - UFLEET_HOSTS=192.168.0.151
+      - APPLY_INFO_HOST=192.168.0.151
+      - APPLY_INFO_PORT=8883
+      - UFLEET_NODE_ID=192-168-0-151
+
+volumes:
+  store_data:
+    external: false
+  etcd_data:
+    external: false
+networks:
+  mdb:
+    external: false

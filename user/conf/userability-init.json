@@ -1,0 +1,49 @@
+[
+{
+	"role":"superadmin",
+	"ability":[
+		{"object":"user","operate":["create","delete","get","update","active","deactive"]},
+		{"object":"user-auth","operate":["login","logout","verify"]},
+		{"object":"role","operate":["get","update"]},
+		{"object":"projuser","operate":["getbyproj","getbyuser","getbyprojuser","addtoproj","delfromproj","updaterole"]},
+		{"object":"sysconfig-auth","operate":["get","update"]},
+		{"object":"sysconfig-auth-ldap","operate":["get","update","test"]}
+	]
+},
+{
+	"role":"proj_admin",
+	"ability":[
+		{"object":"user","operate":["get","update"]},
+		{"object":"user-auth","operate":["login","logout","verify"]},
+		{"object":"role","operate":["get"]},
+		{"object":"projuser","operate":["getbyproj","getbyuser","getbyprojuser","addtoproj","delfromproj","updaterole"]}
+	]
+},
+{
+	"role":"proj_dev",
+	"ability":[
+		{"object":"user","operate":["get","update"]},
+		{"object":"user-auth","operate":["login","logout","verify"]},
+		{"object":"role","operate":["get"]},
+		{"object":"projuser","operate":["getbyproj","getbyuser","getbyprojuser"]}
+	]
+},
+{
+	"role":"proj_test",
+	"ability":[
+		{"object":"user","operate":["get","update"]},
+		{"object":"user-auth","operate":["login","logout","verify"]},
+		{"object":"role","operate":["get"]},
+		{"object":"projuser","operate":["getbyproj","getbyuser","getbyprojuser"]}
+	]
+},
+{
+	"role":"proj_ops",
+	"ability":[
+		{"object":"user","operate":["get","update"]},
+		{"object":"user-auth","operate":["login","logout","verify"]},
+		{"object":"role","operate":["get"]},
+		{"object":"projuser","operate":["getbyproj","getbyuser","getbyprojuser"]}
+	]
+}
+]

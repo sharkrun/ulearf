@@ -1,0 +1,30 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Library           RequestsLibrary
+
+*** Variables ***
+${HOST}           http://127.0.0.1
+${name}           name=spac12
+${workspace}      workspace=k8s9
+${creater}        creater=lynn
+&{headers}        token=YWRtaW4=%%123%%234
+
+*** Test Cases ***
+CRUD
+    Create Session    workspacegroup    ${HOST}
+    ${resp}=    Get Request    workspacegroup    /v1/workspacegroup/create/?${name}&${creater}    \    ${headers}
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['content']}    0
+
+create
+    ${resp}=    Get Request    workspacegroup    /v1/workspacegroup/list    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['result']}    0
+
+list
+    ${resp}=    Get Request    workspacegroup    /v1/workspacegroup/detail/?{name}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['result']}    0

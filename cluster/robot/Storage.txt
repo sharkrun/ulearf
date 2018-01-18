@@ -1,0 +1,118 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Library           RequestsLibrary
+
+*** Variables ***
+${HOST1}          http://192.168.14.166:32384
+${HOST}           http://127.0.0.1:8885
+${HOST3}          http://192.168.15.181:8885
+${cluster_name}    dev
+${group}          GroupA
+${ip}             192.168.14.43
+${newRecord}      {"name": "ufleet-14-35", "ip": "192.168.14.35"}
+${license}        68Qe0d9aNaRdV1Q5w3M-D4A5w6MfD-A4weMfD3A-wbM2D7A4x-N9T0Ebw8NfD0c13bN2T8Yf44M3j6A038M6T7A8wdM-T0g3xbM5D-A4w3Q8zbA-waM1EcYew-M4DaE5w1M1D5AfwfM4DfIc4eM6D9A7x5NaD7E8wdM-D2A0xdM0T-A4wbMcD9A-xbM4T7E8x-M6T1Ecx0M4T8E5xe21f56d8a0d84-8bcf-48f5-8034-1afd8e19424ee39f45
+${newNode}        {"cluster_name": "ufleet-14-35", "ip": "192.168.14.43"}
+${newDisk}        {"cluster_name": "ufleet-14-35", "ip": "192.168.14.43", "disks":["/dev/sdb"]}
+${newVolume}      {"cluster_name":"ufleet-14-35", "ip":"192.168.14.43", "name":"test", "capacity":"1G", "share_type":"NFS", "replica":3}
+${updateRecord}    {"name": "test1","category": "app","describe": "test app1"}
+${new_storage_class}    {"cluster_name": "dev","workspace": "work","name": "test-storage-class4","group": "GroupA","ip": "192.168.3.63","capacity": 1}
+${new_pv}         {"cluster_name": "dev","workspace": "work","pv_name": "iscsi-volume","group": "GroupA","ip": "192.168.3.63","capacity": "1G", "volume_type":"iSCSI"}
+${delete_storage_class}    {"cluster_name":"dev", "name":"test-storage-class4"}
+&{headers}        token=1234567890987654321
+
+*** Test Cases ***
+CreateSession
+    Create Session    Server    ${HOST}
+
+AddLicense
+    ${resp}=    Post Request    Server    /v1/storage/set_license    ${license}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+AddCluster
+    ${resp}=    Post Request    Server    /v1/storage/add_cluster    ${newRecord}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+AddNode
+    ${resp}=    Post Request    Server    /v1/storage/add_node    ${newNode}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+AddDataDisk
+    ${resp}=    Post Request    Server    /v1/storage/add_data_disk    ${newDisk}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+AddVolume
+    ${resp}=    Post Request    Server    /v1/storage/add_volume    ${newVolume}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+ClusterList
+    ${resp}=    Get Request    Server    /v1/storage/clusters    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+DiskList
+    ${resp}=    Get Request    Server    /v1/storage/disks/${cluster_name}/${ip}    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+VolumeList
+    ${resp}=    Get Request    Server    /v1/storage/volumes/${cluster_name}    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+Delete
+    ${resp}=    Post Request    Server    /v1/storage/delete/${project_id}    \    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+StorageClassList
+    ${resp}=    Get Request    Server    /v1/storage/storageclasses/${cluster_name}/${group}    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+GroupStorageClassList
+    ${resp}=    Get Request    Server    /v1/storage/get_sc_by_group/${group}    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+AddStorageClass
+    ${resp}=    Post Request    Server    /v1/storage/add_storage_class    ${new_storage_class}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+DeleteStorageClass
+    ${resp}=    Post Request    Server    /v1/storage/delete_storage_class    ${delete_storage_class}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}
+
+AddPV
+    ${resp}=    Post Request    Server    /v1/storage/add_pv    ${new_pv}    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+    Set Suite Variable    ${project_id}    ${result['content']}

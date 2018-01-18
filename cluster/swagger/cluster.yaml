@@ -1,0 +1,2737 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: ufleet cluster
+  description: UFleet 平台，cluster模块相关接口,token=1234567890987654321
+  version: "0.1.0"
+  termsOfService: http://gitlab.youruncloud.com/
+# the domain of the service  somedomain
+# host: 192.168.3.31:8885
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+
+  /cluster/create/:
+    post:
+      description: |
+        创建集群
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/cluster_create'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/add_master/:
+    post:
+      description: |
+        添加master主机
+      parameters:
+        - name: body
+          in: body
+          description: 添加主机
+          required: true
+          schema:
+            $ref: '#/definitions/add_master'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+
+  /cluster/add_cluster/:
+    post:
+      description: |
+        添加node主机
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/add_cluster'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/add_node/:
+    post:
+      description: |
+        添加node主机
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/add_node'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /cluster/save_auth/:
+    post:
+      description: |
+        保存创建集群成功的认证信息
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/save_auth'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /cluster/remove_cluster/:
+    get:
+      description: |
+        移除集群
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/remove_master/:
+    get:
+      description: |
+        移除master
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+        - name: master_name
+          in: query
+          description: master名称.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/remove_node/:
+    get:
+      description: |
+        移除node
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+        - name: node_name
+          in: query
+          description: 主机名称.
+          required: true
+          type: string
+          format: string
+        - name: force
+          in: query
+          description: 是否强制删除.
+          required: false
+          type: boolean
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/modify_cluster/:
+    get:
+      description: |
+        修改集群名称，该接口当前还不能使用
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: header
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /cluster/delete_cluster/:
+    get:
+      summary: 删除集群
+      description: |
+        删除集群
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: string
+          format: string
+        - name: cluster_name
+          in: query
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/list/:
+    get:
+      description: |
+        获取集群列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: offset
+          in: query
+          description: 指定返回开始的位置
+          required: false
+          type: number
+        - name: limit
+          in: query
+          description: 限制取到的数量
+          required: false
+          type: number
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/get_one_cluster/:
+    get:
+      description: |
+        获取一个成功通过认证的集群信息
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: string
+          format: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/detail_cluster/:
+    get:
+      description: |
+        获取集群详情
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: string
+          format: string
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/list_node/:
+    get:
+      description: |
+        获取集群下的主机列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/list_pod/:
+    get:
+      description: |
+        获取集群下的pod列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /cluster/list_workspace/:
+    get:
+      description: |
+        获取集群下的workspace列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/list_workspace'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /cluster/detail_node/:
+    get:
+      description: |
+        获取主机详情
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/authenticat/:
+    get:
+      summary: cluster
+      description: |
+        获取集群的认证信息
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: group_name
+          in: query
+          description: 用户组.
+          required: true
+          type: string
+          format: string
+        - name: workspace
+          in: query
+          description: workspace.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/cluster_overview/:
+    get:
+      summary: cluster
+      description: |
+        获取集群的概览
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/node_overview/:
+    get:
+      summary: cluster
+      description: |
+        获取node的概览
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /cluster/get_cluster_by_space/:
+    get:
+      summary: cluster
+      description: |
+        通过workspacegroup和workspace获取cluster的名称
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: workspacegroup_name
+          in: query
+          description: group名称.
+          required: true
+          type: string
+        - name: workspace_name
+          in: query
+          description: workspace名称.
+          required: true
+          type: string
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/get_subnet/:
+    get:
+      summary: 获取一个集群可用子网
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: query
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+        - name: offset
+          in: query
+          description: 分页
+          required: false
+          type: integer
+          format: integer
+        - name: limit
+          in: query
+          description: 分页
+          required: false
+          type: integer
+          format: integer
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/set_net_ws/:
+    post:
+      summary: 设置子网 指派工作区
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/set_net_ws'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /cluster/del_net_ws/:
+    post:
+      summary: 删除子网
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/del_net_ws'
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /cluster/subnet_ws_list/:
+    get:
+      summary: 已被集群分配的子网列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: query
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+        - name: offset
+          in: query
+          description: 分页
+          required: false
+          type: integer
+          format: integer
+        - name: limit
+          in: query
+          description: 分页
+          required: false
+          type: integer
+          format: integer
+      tags:
+        - Cluster
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /ippool/create_subnet/:
+    post:
+      summary: 创建集群网络池
+      description: |
+        创建集群的网络池
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ippool'
+      tags:
+        - Ippool
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /ippool/get_all_subnet/:
+    get:
+      summary: 获取所有网络池以及子网详情
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Ippool
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /ippool/del_subip_list/:
+    post:
+      summary: 删除子网列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          description: 删除子网列表
+          required: true
+          schema:
+            $ref: '#/definitions/del_subip_list'
+
+      tags:
+        - Ippool
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /ippool/del_subnet/:
+    get:
+      summary: 删除子网
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: query
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+        - name: fa_ip
+          in: query
+          description: 子网ip
+          required: true
+          type: string
+          format: string
+      tags:
+        - Ippool
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /ippool/get_subnet_by_workspace/:
+    get:
+      summary: 通过工作区获取子网
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: workspace
+          in: query
+          description: workspace名称
+          required: true
+          type: string
+          format: string
+      tags:
+        - Ippool
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /ippool/update_subnet/:
+    post:
+      summary: 编辑网络池
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          description: 删除子网列表
+          required: true
+          schema:
+            $ref: '#/definitions/update_subnet'
+
+      tags:
+        - Ippool
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /workspace/create/:
+    post:
+      description: |
+        创建workspace
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/workspace_create'
+
+      tags:
+        - Workspace
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /workspace/workspace_delete/:
+    get:
+      description: |
+        删除workspace
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+        - name: workspacegroup_name
+          in: query
+          description: 组名.
+          required: true
+          type: string
+          format: string
+        - name: workspace_name
+          in: query
+          description: workspace名称.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Workspace
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /workspace/update/:
+    post:
+      description: |
+        更新workspace配置
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/workspace_create'
+      tags:
+        - Workspace
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /workspace/detail/:
+    post:
+      description: |
+        workspace详情
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: body
+          in: body
+          description: 用户签名的token.
+          required: true
+          schema:
+            $ref: '#/definitions/workspace'
+      tags:
+        - Workspace
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /workspace/source_set/:
+    post:
+      description: |
+        针对namesapce配额
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: body
+          in: body
+          description: 用户签名的token.
+          required: true
+          schema:
+            $ref: '#/definitions/workspace'
+      tags:
+        - Workspace
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /workspace/get_subnet_workspace/:
+    get:
+      summary: 获取可被指派的workspace
+
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token.
+          required: false
+          type: number
+          format: double
+        - name: cluster_name
+          in: query
+          description: 集群名称.
+          required: true
+          type: string
+          format: string
+
+      tags:
+        - Workspace
+      responses:
+        200:
+          description: result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /configmap/all:
+    get:
+      summary: 获取所有configmap
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: group
+          in: query
+          description: group
+          required: true
+          type: string
+      tags:
+        - Configmap
+      responses:
+        200:
+          description: configmap列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/result_configmap'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /configmap/create:
+    post:
+      summary: 创建configmap
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          description: configmap配置
+          required: true
+          schema:
+            $ref: '#/definitions/configmap'
+      tags:
+        - Configmap
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /configmap/configmaps:
+    get:
+      summary: 根据workspace获取configmap列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: workspace
+          in: query
+          description: group
+          required: true
+          type: string
+      tags:
+        - Configmap
+      responses:
+        200:
+          description: configmap列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/result_configmap'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /configmap/configmap/{configmap_name}/{version}:
+    delete:
+      summary: 删除configmap
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: configmap_name
+          in: path
+          description: configmap名称
+          type: string
+          required: true
+          format: string
+        - name: version
+          in: path
+          description: 版本号
+          type: string
+          required: true
+
+      tags:
+        - Configmap
+      responses:
+        200:
+          description: configmap列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/result_configmap'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /storage/set_license:
+    post:
+      summary: 配置license
+      description: |
+        配置license，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: license
+          in: body
+          description: license
+          required: true
+          schema:
+            type: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/get_license:
+    get:
+      summary: 读取license
+      description: |
+        配置license，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/clusters:
+    get:
+      summary: 列出全部的存储集群
+      description: |
+        列出全部的存储集群，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 存储集群列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/storage_cluster'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /storage/add_cluster:
+    post:
+      summary: 添加存储集群
+      description: |
+        添加存储集群，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: body
+          in: body
+          description: 集群信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_storage_cluster'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/nodes/{cluster_name}:
+    get:
+      summary: 列出全部的应用节点
+      description: |
+        列出全部的应用节点
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: path
+          description: 集群名称
+          type: string
+          required: true
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 应用节点列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/storage_app_node'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/add_node:
+    post:
+      summary: 给存储集群添加节点
+      description: |
+        给存储集群添加节点，同时添加为存储节点和应用节点，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: node_info
+          in: body
+          description: 节点信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_storage_node'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/delete_node:
+    post:
+      summary: 从存储集群删除节点
+      description: |
+        从存储集群删除节点，同时删除同一个IP的存储节点和应用节点，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: node_info
+          in: body
+          description: 节点信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_storage_node'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/disks/{cluster_name}/{host_ip}:
+    get:
+      summary: 取得主机上磁盘列表
+      description: |
+        取得主机上磁盘列表，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: path
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+        - name: host_ip
+          in: path
+          description: 主机IP
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 磁盘列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/disk'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/add_data_disk:
+    post:
+      summary: 给存储集群添加磁盘
+      description: |
+        给存储集群添加磁盘，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: disk_info
+          in: body
+          description: 磁盘信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_disk'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/delete_data_disk:
+    post:
+      summary: 从存储集群删除磁盘
+      description: |
+        从存储集群删除磁盘，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: disk_info
+          in: body
+          description: 磁盘信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_disk'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/volumes/{cluster_name}:
+    get:
+      summary: 取得集群数据卷列表
+      description: |
+        取得集群数据卷列表，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: path
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 数据卷列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/volume'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/workspace_volumes/{workspace}:
+    get:
+      summary: 取得工作区所在集群的数据卷列表
+      description: |
+        取得工作区所在集群的数据卷列表，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: workspace
+          in: path
+          description: 工作区
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 数据卷列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/volume'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/add_volume:
+    post:
+      summary: 给存储集群添加数据卷
+      description: |
+        给存储集群添加数据卷，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: volume_info
+          in: body
+          description: 存储卷信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_volume'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/delete_volume:
+    post:
+      summary: 删除存储卷信息
+      description: |
+        删除数据卷
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: volume_info
+          in: body
+          description: 存储卷信息
+          required: true
+          schema:
+            $ref: '#/definitions/delete_volume'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/pvs/{cluster_name}:
+    get:
+      summary: 取得集群pv列表
+      description: |
+        取得集群pv列表，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: path
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: pv列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pv'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/get_pv_by_group/{group}:
+    get:
+      summary: 取得用户组下所有的容器卷列表
+      description: |
+        取得用户组下所有的容器卷列表，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: group
+          in: path
+          description: 用户组
+          required: true
+          type: string
+          format: string
+        # - name: cluster_name
+        #   in: path
+        #   description: cluster_name
+        #   type: string
+        #   required: true
+        #   format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: pv列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pv'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/get_pv_by_workspace/{cluster_name}/{workspace}:
+    get:
+      summary: 取得工作区内所有的容器卷列表
+      description: |
+        取得工作区内所有的容器卷列表，管理员权限的接口
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: path
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+        - name: workspace
+          in: path
+          description: 工作区
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: pv列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pv'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/add_pv:
+    post:
+      summary: 在kubernetes集群创建pv
+      description: |
+        在kubernetes集群创建pv
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: pv_info
+          in: body
+          description: pv信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_pv'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/delete_pv:
+    post:
+      summary: 从kubernetes集群删除pv
+      description: |
+        从kubernetes集群删除pv
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: pv_info
+          in: body
+          description: pv信息
+          required: true
+          schema:
+            $ref: '#/definitions/delete_pv'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/storageclasses/{cluster_name}/{group}:
+    get:
+      summary: 取得Storage Class列表
+      description: |
+        取得集群集群共享卷列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: cluster_name
+          in: path
+          description: 集群名称
+          required: true
+          type: string
+          format: string
+        - name: group
+          in: path
+          description: 用户组
+          required: false
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: Storage Class列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/storage_class'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/get_sc_by_group/{group}:
+    get:
+      summary: 取得用户组下所有的storage class
+      description: |
+        取得用户组下所有的共享卷列表
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: group
+          in: path
+          description: 用户组
+          required: true
+          type: string
+          format: string
+      tags:
+        - Storage
+      responses:
+        200:
+          description: Storage Class列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/storage_class'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/add_storage_class:
+    post:
+      summary: 创建Storage Class
+      description: |
+        创建共享卷
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: pv_info
+          in: body
+          description: StorageClass信息
+          required: true
+          schema:
+            $ref: '#/definitions/new_storage_class'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /storage/delete_storage_class:
+    post:
+      summary: 删除Storage Class
+      description: |
+        删除共享卷
+      parameters:
+        - name: token
+          in: header
+          description: 用户签名的token
+          required: true
+          type: string
+          format: string
+        - name: pv_info
+          in: body
+          description: StorageClass信息
+          required: true
+          schema:
+            $ref: '#/definitions/delete_storage_class'
+      tags:
+        - Storage
+      responses:
+        200:
+          description: 操作结果
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  cluster_create:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      creater:
+        type: string
+        description: 创建者
+      create_way:
+        type: string
+        description: 创建方式(add:纳管,create:创建)
+      cacerts:
+        type: string
+        description: ca证书（如果是create集群不填)
+      apiservercerts:
+        type: string
+        description: apiserver证书（如果是create集群不填）
+      apiserverkey:
+        type: string
+        description: apiserver key （如果是create集群 不填)
+      host_name:
+        type: string
+        description: ip （如果是create集群 不填）
+  add_cluster:
+    type: object
+    properties:
+      auth_way:
+        type: string
+        description: 认证方式
+      creater:
+        type: string
+        description: 创建者
+      cluster_name:
+        type: string
+        description: 集群名称
+      auth_data:
+        type: string
+        description: apiserver经过签名的证书
+      server:
+        type: string
+        description: 服务器ip
+      cert_data:
+        type: string
+        description: 客户端证书
+      client_key:
+        type: string
+        description: 私钥.
+      context_name:
+        type: string
+        description: context_name.
+
+
+  master:
+    type: object
+    properties:
+      HostName:
+        type: string
+        description: 主机名
+      HostIP:
+        type: string
+        description: 主机IP
+      UserName:
+        type: string
+        description: 用户名，登录用户必须有docker可执行权限
+      UserPwd:
+        type: string
+        description: 密码，key登录可留空
+      PriPwd:
+        type: string
+        description: 私钥，密码登录留空
+      Prikey:
+        type: string
+        description: 私钥密码，没有密码留空
+
+      ServiceNetwork:
+        type: string
+        description: K8S服务CIDR
+      PodNetwork:
+        type: string
+        description: K8S POD CIDR
+      KubeServiceIP:
+        type: string
+        description: K8S默认服务IP，服务CIDR第一个地址
+      DNSServiceIP:
+        type: string
+        description: DNS服务地址
+
+  add_master:
+    type: object
+    properties:
+      ClusterName:
+        type: string
+        description:  集群名，与上面集群名一致，前端页面可联动
+      Name:
+        type: string
+        description:  集群名，与上面集群名一致
+      Masters:
+        type: array
+        items:
+            $ref: '#/definitions/master'
+
+
+  add_node:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: 集群名称
+      HostName:
+        type: string
+        description: 主机名
+      HostIP:
+        type: string
+        description: 主机IP
+      UserName:
+        type: string
+        description: 用户名，登录用户必须有docker可执行权限
+      UserPwd:
+        type: string
+        description: 密码，key登录可留空
+      PriPwd:
+        type: string
+        description: 私钥，密码登录留空
+      Prikey:
+        type: string
+        description: 私钥密码，没有密码留空
+      MasterIP:
+        type: string
+        description: master IP
+      ClusterName:
+        type: string
+        description: 集群名，必须添加，前端可选择
+
+
+
+  save_auth:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      auth_data:
+        type: string
+        description: ca证书
+      server:
+        type: string
+        description: ip
+      cert_data:
+        type: string
+        description: 客户端证书
+      client_key:
+        type: string
+        description: 私钥
+
+  ippool:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      subnet:
+        type: string
+        description: ip
+      netmask:
+        type: integer
+        description: 子网掩码
+      ipip:
+        type: integer
+        description: ipip是否开启
+
+      nat:
+        type: integer
+        description: NAT模式是否开启
+
+
+  set_net_ws:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      workspace:
+        type: string
+        description:  指派工作区
+      fa_ip:
+        type: string
+        description: fa_ip
+      subnet:
+        type: string
+        description: subnet
+      key:
+        type: string
+        description: string
+
+  del_net_ws:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      fa_ip:
+        type: string
+        description: fa_ip
+      key:
+        type: string
+        description: key
+      subnet:
+        type: string
+        description: subnet
+      workspace:
+        type: string
+        description: workspace
+
+  list_workspace:
+    type: object
+    properties:
+      result:
+        type: integer
+        format: int32
+        description: 错误码，为0表示操作成功，否则为对应的错误码
+      message:
+        type: string
+        description: 错误描述信息
+      content:
+        type: object
+        description: 操作成功返回的结果集
+
+  del_subip_list:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      fa_ip:
+        type: string
+        description: subnet.
+      subip_list:
+        type: object
+        description: 删除的子网列表
+
+  update_subnet:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      fa_ip:
+        type: string
+        description: 子网ip
+      key:
+        type: string
+        description: key
+      ipip:
+        type: integer
+        description: ipip模式
+      nat:
+        type: integer
+        description: nat模式
+      is_show:
+        type: integer
+        description: 是否可以被分配使用
+
+  workspacegroup:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: 集群
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+
+  workspacegroup_create:
+    type: object
+    properties:
+      creater:
+        type: string
+        description: 创建者
+
+
+
+  workspace:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: 集群
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+
+  workspace_create:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      workspace_name:
+        type: string
+        description: workspace name.
+      workspacegroup_name:
+        type: string
+        description: 组名
+      resource_cpu:
+        type: number
+        description: 对namespace的cpu(核)的限制.
+      resource_mem:
+        type: number
+        description: 针对namespace的mem内存(GB)的限制.
+      min_cpu:
+        type: number
+        description: 每个容器的cpu(个数)的限制.
+      min_mem:
+        type: number
+        description: 每个容器的mem内存(Mi)的限制.
+
+  workspace_list_name:
+    type: object
+    properties:
+      result:
+        type: integer
+        format: int32
+        description: 错误码，为0表示操作成功，否则为对应的错误码
+      message:
+        type: string
+        description: 错误描述信息
+      content:
+        type: object
+        description: 操作成功返回的结果集
+
+
+  result_configmap:
+    type: object
+    properties:
+      result:
+        type: integer
+        format: int32
+      message:
+        type: string
+        description: 错误描述信息
+      content:
+        items:
+          $ref: '#/definitions/Result'
+        description: 操作成功返回的结果集合
+
+  configmap:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 配置名称
+      version:
+        type: string
+        description: 版本
+      describe:
+        type: string
+        description: 描述
+      content:
+        type: string
+        description: 内容
+      group:
+        type: string
+        description: group
+      workspace:
+        type: string
+        description: workspace名称
+      creater:
+        type: string
+        description: 创建者
+      create_time:
+        type: string
+        description: 创建时间
+
+
+  new_storage_cluster:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 集群名称
+      ip:
+        type: string
+        description: 主机IP
+  storage_cluster:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 集群名称
+      cluster_id:
+        type: string
+        description: 集群ID
+      volume:
+        type: integer
+        description: 数据卷个数
+      total:
+        type: integer
+        description: 总容量
+      free:
+        type: integer
+        description: 剩余容量
+      ExpiryDate:
+        type: integer
+        description: license过期时间（秒）
+      create_time:
+        type: integer
+        description: 创建时间（毫秒）
+  new_storage_node:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      ip:
+        type: string
+        description: 存储主机IP
+  storage_app_node:
+    type: object
+    properties:
+      cluster:
+        type: string
+        description: 集群名称
+      cluster_id:
+        type: integer
+        description: 集群ID
+      ip:
+        type: string
+        description: 存储主机IP
+      create_time:
+        type: integer
+        description: 创建时间（毫秒）
+      domain_name:
+        type: string
+        description: 存储集群中的域
+  disk:
+    type: object
+    properties:
+      Path:
+        type: string
+        description: 路径
+      added:
+        type: boolean
+        description: 是否已经添加
+      Type:
+        type: string
+        description: 磁盘类型
+      Total:
+        type: integer
+        description: 总容量
+      Allocated:
+        type: integer
+        description: 已分配容量
+      creator:
+        type: string
+        description: 创建者
+
+  new_disk:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      ip:
+        type: string
+        description: 存储主机IP
+      disks:
+        type: array
+        items:
+          type: string
+        description: 磁盘路径列表
+  volume:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      ip:
+        type: string
+        description: 存储主机IP
+      name:
+        type: string
+        description: 数据卷名称，不能重复
+      capacity:
+        type: string
+        description: 容量，带单位如（1G，1M）
+      share_type:
+        type: string
+        description: 共享类型，NFS或ISCSI
+      cluster_id:
+        type: string
+        description: 集群ID
+      volume_id:
+        type: string
+        description: 卷ID
+      create_time:
+        type: integer
+        description: 创建时间（毫秒）
+      replica:
+        type: integer
+        description: 副本数
+      creator:
+        type: string
+        description: 创建者
+  new_volume:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      ip:
+        type: string
+        description: 存储主机IP
+      name:
+        type: string
+        description: 数据卷名称，不能重复
+      capacity:
+        type: string
+        description: 容量，带单位如（1G，1M）
+      share_type:
+        type: string
+        description: 共享类型，NFS或iSCSI,默认NFS
+      replica:
+        type: integer
+   #     required: false
+        description: 副本数，默认值2
+  delete_volume:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      volume_id:
+        type: string
+        description: 存储卷ID
+
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  Result:
+    type: object
+    properties:
+      result:
+        type: integer
+        format: int32
+        description: 错误码，为0表示操作成功，否则为对应的错误码
+      message:
+        type: string
+        description: 错误描述信息
+      content:
+        type: object
+        description: 操作成功返回的结果集
+  pv:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      workspace:
+        type: string
+        description: 工作区
+      group:
+        type: string
+        description: 用户组
+      pv_name:
+        type: string
+        description: 容器卷名称名称
+      ip:
+        type: string
+        description: 存储主机IP
+      name:
+        type: string
+        description: 数据卷名称，不能重复
+      capacity:
+        type: string
+        description: 容量，带单位如（1G，1M）
+      volume_type:
+        type: string
+        description: 共享类型，NFS或iSCSI
+      volume_id:
+        type: string
+        description: 存储卷ID，类似VOL00000002
+      recovery_model:
+        type: string
+        description: 回收模式：Retain, Recycle, Delete
+      read_write_mode:
+        type: string
+        description: 访问模式：RWO,ROX,RWX 对应 ReadWriteOnce，ReadOnlyMany，ReadWriteMany
+      create_time:
+        type: string
+        description: 创建时间
+      creator:
+        type: string
+        description: 创建者
+  new_pv:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      workspace:
+        type: string
+        description: 工作区
+      pv_name:
+        type: string
+        description: 容器卷名称名称
+      group:
+        type: string
+        description: 用户组
+      ip:
+        type: string
+        description: 存储主机IP
+      capacity:
+        type: string
+        description: 容量，带单位如（1G，1M）
+      volume_type:
+        type: string
+        description: 共享类型，NFS或iSCSI
+      recovery_model:
+        type: string
+        description: 回收模式：MANUAL,AUTO,DELETE
+      read_write_mode:
+        type: string
+        description: 访问模式：RWO,ROX,RWX
+  delete_pv:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      pv_name:
+        type: string
+        description: 容器卷名称
+  storage_class:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      namespace:
+        type: string
+        description: namespace
+      group:
+        type: string
+        description: 用户组
+      storage_class_name:
+        type: string
+        description: 共享卷名称，Kubernetes端的名称
+      volume_name:
+        type: string
+        description: volume name，Vespace端的名称
+      capacity:
+        type: string
+        description: 容量，带单位如（1G）
+      ip:
+        type: string
+        description: 存储主机IP
+      data_volume_path:
+        type: string
+        description: 挂载路径
+      access_path:
+        type: string
+        description: 访问路径
+      volume_id:
+        type: string
+        description: 存储卷ID，类似VOL00000002
+      status:
+        type: string
+        description: 状态
+      create_time:
+        type: string
+        description: 创建时间
+      creator:
+        type: string
+        description: 创建者
+  new_storage_class:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      name:
+        type: string
+        description: 共享卷名称
+      group:
+        type: string
+        description: 用户组
+      ip:
+        type: string
+        description: 存储主机IP
+      capacity:
+        type: string
+        description: 容量，带单位如（1G）
+  delete_storage_class:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+        description: 集群名称
+      name:
+        type: string
+        description: 共享卷名称

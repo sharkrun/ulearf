@@ -1,0 +1,13 @@
+.idea
+*.pyc
+*.log
+*.prefs
+*.git
+.ropeproject
+.pydevproject
+.project
+.settings
+/src-pyc/
+temp.py
+run.sh
+copy-config.txt

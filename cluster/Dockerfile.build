@@ -1,0 +1,7 @@
+FROM 192.168.18.250:5002/ufleet-build/python-ubuntu:v1.3.5
+
+MAINTAINER youruncloud
+
+RUN pip install --no-cache-dir IPy==0.83
+
+

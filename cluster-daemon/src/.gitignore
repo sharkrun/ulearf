@@ -1,0 +1,9 @@
+*.pyc
+*.log
+*.prefs
+temp.py
+/test/*
+.idea/*
+*.1
+/.cache/*
+/.vscode/*

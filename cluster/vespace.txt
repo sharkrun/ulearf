@@ -1,0 +1,622 @@
+http://192.168.14.28:10001/swagger
+
+http://192.168.3.66:8081/v1/host/storage/adddatadevice
+{"ip":"192.168.3.65","port":9887,"domain":"default","devices":["/dev/sdb"],"clusteruuid":"d0cfaa10-92c8-4c10-b256-d9a1488517e9"
+}
+
+http://192.168.3.66:8081/v1/host/storage/deletedatadevice
+{"ip":"192.168.3.65","port":9887,"domain":"default","devices":["/dev/sdb"],"clusteruuid":"d0cfaa10-92c8-4c10-b256-d9a1488517e9"}
+
+
+http://192.168.3.66:8081/v1/volume/add
+{
+	"name" : "nfs001",
+	"capacity" : "0.5G",
+	"namespace" : "default",
+	"poolname" : "default",
+	"attribute" : {
+		"DevType" : "share",
+		"DataType" : "stripe",
+		"Safety" : "first",
+		"Encrypto" : "off",
+		"DriveType" : "HDD",
+		"ThinProvision" : "on",
+		"ReadIOPSLimit" : "0",
+		"WriteIOPSLimit" : "0",
+		"ReadBytesLimit" : "0",
+		"WriteBytesLimit" : "0",
+		"ShareType" : "nfs",
+		"NFSArgs" : "rw@sync@no_root_squash",
+		"NFSAcl" : "*",
+		"StripeShift" : "12",
+		"StripeNum" : "4"
+	},
+	"snap_capacity"
+	 : "0.5G",
+	"address" : "192.168.3.65",
+	"clusteruuid" : "d0cfaa10-92c8-4c10-b256-d9a1488517e9"
+}
+
+{
+	"name" : "iscsi001",
+	"capacity" : "0.5G",
+	"namespace" : "default",
+	"poolname" : "default",
+	"attribute" : {
+		"DevType": "block",
+		"DataType" : "stripe",
+		"Safety" : "first",
+		"Encrypto" : "off",
+		"DriveType" : "HDD",
+		"ThinProvision" : "on",
+		"ReadIOPSLimit" : "0",
+		"WriteIOPSLimit" : "0",
+		"ReadBytesLimit" : "0",
+		"WriteBytesLimit" : "0",
+		"StripeShift" : "12",
+		"StripeNum" : "8"
+	},
+	"snap_capacity" : "0.5G",
+	"address" : "192.168.3.65",
+	"clusteruuid" : "d0cfaa10-92c8-4c10-b256-d9a1488517e9"
+}
+
+{
+	"name" : "iscsi002",
+	"capacity" : "0.5G",
+	"namespace" : "default",
+	"poolname" : "default",
+	"attribute" : {
+		"DevType": "target",
+		"DataType" : "stripe",
+		"Safety" : "first",
+		"Encrypto" : "off",
+		"DriveType" : "HDD",
+		"ThinProvision" : "on",
+		"ReadIOPSLimit" : "0",
+		"WriteIOPSLimit" : "0",
+		"ReadBytesLimit" : "0",
+		"WriteBytesLimit" : "0",
+		"TargetACL" : "ALL",
+		"TargetDPort" : "0",
+		"replica" : "1",
+		"StripeShift" : "12",
+		"StripeNum" : "8"
+	},
+	"snap_capacity" : "0.5G",
+	"address": "192.168.3.65",
+	"clusteruuid" : "d0cfaa10-92c8-4c10-b256-d9a1488517e9"
+}
+
+
+http://192.168.3.66:8081/v1/volume/list?filtername=&pagenum=0&pagesize=10&filterstatus=-1&filtermounted=0&clusteruuid=d0cfaa10-92c8-4c10-b256-d9a1488517e9
+http://%s               /v1/volume/list?filtername=%s&pagenum=%s&pagesize=%s&                             clusteruuid=%s&namespace=%s&poolname=%s
+{
+  "ecode": 0,
+  "message": "",
+  "data": {
+    "List": [
+      {
+        "name": "iscsi002",
+        "namespace": "default",
+        "poolname": "default",
+        "status": 1,
+        "flag": 0,
+        "capacity": 536870912,
+        "attr": {
+          "Compress": "off",
+          "DataType": "stripe",
+          "DevType": "target",
+          "DriveType": "HDD",
+          "Encrypto": "off",
+          "ReadBytesLimit": "0",
+          "ReadIOPSLimit": "0",
+          "ReadOnly": "off",
+          "Safety": "first",
+          "Snapshot": "head",
+          "StripeNum": "8",
+          "StripeShift": "12",
+          "TargetACL": "ALL",
+          "TargetDPort": "20002",
+          "ThinProvision": "on",
+          "WriteBytesLimit": "0",
+          "WriteIOPSLimit": "0",
+          "replica": "1"
+        },
+        "replicacount": 1,
+        "readwrite": null,
+        "readonly": null,
+        "controllerhosts": {
+          "default": {
+            "192.168.3.65": true
+          }
+        },
+        "mounted": [
+          "192.168.3.65"
+        ],
+        "accesspath": [
+          "192.168.3.65:20002 iqn.2017-09.vespace.cn:zgvmyxvsdcndt01fvcnkzwzhdwx0i2lzy3npmday1424615382"
+
+        ],
+        "replicas": [
+          {
+            "Name": "iscsi002@replica0",
+            "Index": 0,
+            "Status": 1
+          }
+        ],
+        "accounts": [],
+        "ctime": 1508997233,
+        "snap_cap": 536870912
+      },
+      {
+        "name": "iscsi001",
+        "namespace": "default",
+        "poolname": "default",
+        "status": 1,
+        "flag": 0,
+        "capacity": 536870912,
+        "attr": {
+          "Compress": "off",
+          "DataType": "stripe",
+          "DevType": "block",
+          "DriveType": "HDD",
+          "Encrypto": "off",
+          "ReadBytesLimit": "0",
+          "ReadIOPSLimit": "0",
+          "ReadOnly": "off",
+          "Safety": "first",
+          "Snapshot": "head",
+          "StripeNum": "8",
+          "StripeShift": "12",
+          "ThinProvision": "on",
+          "WriteBytesLimit": "0",
+          "WriteIOPSLimit": "0"
+        },
+        "replicacount": 2,
+        "readwrite": null,
+        "readonly": null,
+        "controllerhosts": {
+          "default": {
+            "192.168.3.65": true
+          }
+        },
+        "mounted": [
+          "192.168.3.65"
+        ],
+        "accesspath": [
+          "192.168.3.65 /dev/sdd"
+        ],
+        "replicas": [
+          {
+            "Name": "iscsi001@replica0",
+            "Index": 0,
+            "Status": 1
+          },
+          {
+            "Name": "iscsi001@replica1",
+            "Index": 1,
+            "Status": 1
+          }
+        ],
+        "accounts": [],
+        "ctime": 1508997081,
+        "snap_cap": 536870912
+      },
+      {
+        "name": "nfs001",
+        "namespace": "default",
+        "poolname": "default",
+        "status": 1,
+        "flag": 0,
+        "capacity": 536870912,
+        "attr": {
+          "Compress": "off",
+          "DataType": "stripe",
+          "DevType": "share",
+          "DriveType": "HDD",
+          "Encrypto": "off",
+          "NFSAcl": "*",
+          "NFSArgs": "rw,sync,no_root_squash",
+          "ReadBytesLimit": "0",
+          "ReadIOPSLimit": "0",
+          "ReadOnly": "off",
+          "Safety": "first",
+          "ShareType": "nfs",
+          "Snapshot": "head",
+          "StripeNum": "4",
+          "StripeShift": "12",
+          "ThinProvision": "on",
+          "WriteBytesLimit": "0",
+          "WriteIOPSLimit": "0"
+        },
+        "replicacount": 2,
+        "readwrite": null,
+        "readonly": null,
+        "controllerhosts": {
+          "default": {
+            "192.168.3.65": true
+          }
+        },
+        "mounted": [
+          "192.168.3.65"
+        ],
+        "accesspath": [
+          "192.168.3.65:/exports/default/default/nfs001",
+          "",
+          ""
+        ],
+        "replicas": [
+          {
+            "Name": "nfs001@replica0",
+            "Index": 0,
+            "Status": 1
+          },
+          {
+            "Name": "nfs001@replica1",
+            "Index": 1,
+            "Status": 1
+          }
+        ],
+        "accounts": [],
+        "ctime": 1508989271,
+        "snap_cap": 536870912
+      }
+    ],
+    "TotalCount": 3
+  }
+}
+
+http://192.168.3.66:8081/v1/volume/unmap
+{"name":"iscsi002","poolname":"default","namespace":"default","addresses":[{"ip":"192.168.3.65","port"
+:9888}],"clusteruuid":"d0cfaa10-92c8-4c10-b256-d9a1488517e9"}
+
+{"name":"nfs001","poolname":"default","namespace":"default","addresses":[{"ip":"192.168.3.65","port"
+:9888}],"clusteruuid":"d0cfaa10-92c8-4c10-b256-d9a1488517e9"}
+
+http://192.168.3.66:8081/v1/volume/map
+
+{"name":"iscsi002","poolname":"default","namespace":"default","addresses":[{"ip":"192.168.3.65","port":9888}],"targetdport":0,
+"attr":{"NFSArgs":"rw@sync@no_root_squash","NFSAcl":"*"},"clusteruuid":"d0cfaa10-92c8-4c10-b256-d9a1488517e9"}
+
+{"name":"nfs001","poolname":"default","namespace":"default","addresses":[{"ip":"192.168.3.65","port":9888}],
+"attr":{"NFSArgs":"rw@sync@no_root_squash","NFSAcl":"*"},"clusteruuid":"d0cfaa10-92c8-4c10-b256-d9a1488517e9"
+}
+
+
+http://192.168.17.203:8081/v1/volume/get?name=vol1&namespace=default&poolname=default&clusteruuid=01332be6-a458-46ba-88ed-d9033f102239
+{
+  "ecode": 0,
+  "message": "",
+  "data": {
+    "name": "vol1",
+    "namespace": "default",
+    "poolname": "default",
+    "status": 1,
+    "flag": 0,
+    "capacity": 8589934592,
+    "attr": {
+      "AccessPath": "",
+      "ComponentShift": "",
+      "Compress": "off",
+      "DataShard": "",
+      "DataType": "stripe",
+      "DevType": "target",
+      "DriveType": "HDD",
+      "Encrypto": "off",
+      "PRIOREPID": "",
+      "ParityShard": "",
+      "ReadBytesLimit": "0",
+      "ReadIOPSLimit": "0",
+      "ReadOnly": "off",
+      "Safety": "first",
+      "SecretKey": "",
+      "ShareType": "",
+      "Snapshot": "head",
+      "StripeNum": "8",
+      "StripeShift": "12",
+      "TargetACL": "ALL",
+      "ThinProvision": "off",
+      "WriteBytesLimit": "0",
+      "WriteIOPSLimit": "0",
+      "filter_label": ""
+    },
+    "replicacount": 2,
+    "readwrite": [],
+    "readonly": [],
+    "snapshots": [],
+    "replicas": [
+      {
+        "Name": "vol1@replica0",
+        "Index": 0,
+        "Status": 1,
+        "Capacity": 8589934592,
+        "Components": [
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@0",
+            "Index": 0,
+            "Capacity": 1073741824,
+            "Start": 0,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@1",
+            "Index": 1,
+            "Capacity": 1073741824,
+            "Start": 1073741824,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@2",
+            "Index": 2,
+            "Capacity": 1073741824,
+            "Start": 2147483648,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@3",
+            "Index": 3,
+            "Capacity": 1073741824,
+            "Start": 3221225472,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@4",
+            "Index": 4,
+            "Capacity": 1073741824,
+            "Start": 4294967296,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@5",
+            "Index": 5,
+            "Capacity": 1073741824,
+            "Start": 5368709120,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@6",
+            "Index": 6,
+            "Capacity": 1073741824,
+            "Start": 6442450944,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica0@192.168.17.205:9887@7",
+            "Index": 7,
+            "Capacity": 1073741824,
+            "Start": 7516192768,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          }
+        ]
+      },
+      {
+        "Name": "vol1@replica1",
+        "Index": 1,
+        "Status": 1,
+        "Capacity": 8589934592,
+        "Components": [
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@0",
+            "Index": 0,
+            "Capacity": 1073741824,
+            "Start": 0,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@1",
+            "Index": 1,
+            "Capacity": 1073741824,
+            "Start": 1073741824,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@2",
+            "Index": 2,
+            "Capacity": 1073741824,
+            "Start": 2147483648,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@3",
+            "Index": 3,
+            "Capacity": 1073741824,
+            "Start": 3221225472,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@4",
+            "Index": 4,
+            "Capacity": 1073741824,
+            "Start": 4294967296,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@5",
+            "Index": 5,
+            "Capacity": 1073741824,
+            "Start": 5368709120,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@6",
+            "Index": 6,
+            "Capacity": 1073741824,
+            "Start": 6442450944,
+            "Domain": "default",
+            "Host": "192.168.17.205:44850",
+            "Pd": "data-b3b0a3e4-be1a-4434-9c2c-72e86e6ecc2f",
+            "Status": 1
+          },
+          {
+            "Name": "vol1@replica1@192.168.17.205:9887@7",
+            "Index": 7,
+            "Capacity": 1073741824,
+            "Start": 7516192768,
+            "Domain": "default",
+            "Host": "192.168.17.205:41156",
+            "Pd": "data-f2d6d4e2-29ea-43d7-8515-6dd935d76fe7",
+            "Status": 1
+          }
+        ]
+      }
+    ],
+    "tree": {
+      "Root": "head",
+      "Nodes": {
+        "head": []
+      }
+    },
+    "controllerhosts": {
+      "default": {
+        "192.168.17.205": true
+      }
+    },
+    "mounted": [
+      "192.168.17.205"
+    ],
+    "accesspath": [
+      "192.168.17.205:20000 iqn.2017-09.vespace.cn:zgvmyxvsdcndt01fvcnkzwzhdwx0i3zvbde864860815"
+    ],
+    "accounts": [],
+    "vid": "ZGVmYXVsdCNDT01FVCNkZWZhdWx0I3ZvbDE",
+    "invalid_access_path": null,
+    "ctime": 1510795732,
+    "snap_cap": 8589934592
+  }
+}
+
+
+http://192.168.3.62:8081/v1/volume/map
+
+
+name	test-iscisi-001
+poolname	default
+namespace	default
+addresses	[бн]
+	0	{бн}
+	ip	192.168.3.61
+	port	9888
+	1	{бн}
+	ip	192.168.3.63
+	port	9888
+targetdport	3260
+attr	{бн}
+	NFSArgs	rw@sync@no_root_squash
+	NFSAcl	*
+clusteruuid	e30191db-62a1-4958-866c-32e0a18873ee
+
+
+{
+  "ecode": 0,
+  "message": "",
+  "data": {
+    "name": "test-iscisi-001",
+    "namespace": "default",
+    "poolname": "default",
+    "status": 1,
+    "capacity": 1073741824,
+    "replicacount": 2,
+    "attr": {
+      "AccessPath": "",
+      "ComponentShift": "30",
+      "Compress": "off",
+      "DataShard": "",
+      "DataType": "linear",
+      "DevType": "target",
+      "DriveType": "HDD",
+      "Encrypto": "off",
+      "PRIOREPID": "",
+      "ParityShard": "",
+      "ReadBytesLimit": "0",
+      "ReadIOPSLimit": "0",
+      "ReadOnly": "off",
+      "Safety": "first",
+      "SecretKey": "",
+      "ShareType": "",
+      "Snapshot": "head",
+      "StripeNum": "",
+      "StripeShift": "",
+      "TargetACL": "ALL",
+      "ThinProvision": "on",
+      "WriteBytesLimit": "0",
+      "WriteIOPSLimit": "0",
+      "filter_label": ""
+    }
+  }
+}
+
+
+http://192.168.3.62:8081/v1/volume/add
+
+name	eeeee
+capacity	1G
+namespace	default
+poolname	default
+attribute	{бн}
+	DevType	target
+	DataType	linear
+	Safety	first
+	Encrypto	off
+	DriveType	HDD
+	ThinProvision	on
+	ReadIOPSLimit	0
+	WriteIOPSLimit	0
+	ReadBytesLimit	0
+	WriteBytesLimit	0
+	TargetACL	ALL
+	ComponentShift	30
+snap_capacity	1G
+clusteruuid	e30191db-62a1-4958-866c-32e0a18873ee
+
+
+
+{
+  "ecode": 0,
+  "message": "",
+  "data": {
+    "name": "eeeee"
+  }
+}

@@ -1,0 +1,2687 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "ufleet project user module",
+        "description": "ufleet project",
+        "version": "1.0.0",
+        "contact": {
+            "email": "alfred.huang@youruncloud.com"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/auth/": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "get auth config",
+                "operationId": "AuthController.Get Auth Config",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/auth.SystemAuthConfig"
+                        }
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "modify auth config",
+                "operationId": "AuthController.Modify Auth Config",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "to adjust system auth config",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/auth.SystemAuthConfig"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} auth.SystemAuthConfig"
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/auth/ldap": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "get ldap config",
+                "operationId": "AuthController.Get LDAP Config",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/auth.SystemLdapConfig"
+                        }
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "modify auth config",
+                "operationId": "AuthController.Modify LDAP Config",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "to adjust ldap config",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/auth.SystemLdapConfig"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/auth.SystemLdapConfig"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/auth/ldap/user": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "get ldap user",
+                "operationId": "AuthController.Get LDAP user",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/auth.LdapUser"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "add ldap user to system",
+                "operationId": "AuthController.Add LDAP user to system",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "the info of ldap user and group",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/auth.LdapUserData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/auth/ldap/users": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "add ldap user to system",
+                "operationId": "AuthController.Add LDAP user to system",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "the info of ldap user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/auth.LdapUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/auth/ldap/verify": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "test ldap verify ability",
+                "operationId": "AuthController.LDAP Config test",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login info of user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/auth.LdapVerifyData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/auth.LdapVerifyResult"
+                        }
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/license/": {
+            "get": {
+                "tags": [
+                    "license"
+                ],
+                "description": "get License info",
+                "operationId": "LicenseController.Get License info",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/role.Role"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "license"
+                ],
+                "description": "Set License",
+                "operationId": "LicenseController.Set License",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "license",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/license/test": {
+            "get": {
+                "tags": [
+                    "license"
+                ]
+            }
+        },
+        "/registry/all": {
+            "get": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "gGet Registry number",
+                "operationId": "RegistryController.Get Registry number",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/registry.Registry"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/registry/group/{groupname}": {
+            "get": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "get group registry",
+                "operationId": "RegistryController.Get Group Registry",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/registry.Registry"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "Update public registry",
+                "operationId": "RegistryController.Update public Registry",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "registry id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "registry info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/registry.Registry"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/registry/group/{groupname}/{name}": {
+            "delete": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "delete group registry",
+                "operationId": "RegistryController.Delete Group Registry",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "address",
+                        "description": "address of registry",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/registry/public": {
+            "get": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "get public registry",
+                "operationId": "RegistryController.Get public registry",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/registry.Registry"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "add public registry",
+                "operationId": "RegistryController.Add Public Registry",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "registry info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/registry.Registry"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/registry/public/{name}": {
+            "delete": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "delete public registry",
+                "operationId": "RegistryController.Delete Public Registry",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "address",
+                        "description": "address of registry",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/registry/{id}": {
+            "put": {
+                "tags": [
+                    "registry"
+                ],
+                "description": "update the registry",
+                "operationId": "RegistryController.Update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "the registry id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "The groupname, the registry belong to",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for registry content",
+                        "required": true
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/registry.Registry"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/repository/": {
+            "get": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "get user self repository",
+                "operationId": "RepositoryController.Get  Repository",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/repository.Repository"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "add repository",
+                "operationId": "RepositoryController.Add  Repository",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "repository info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/repository.Repository"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/repository/all": {
+            "get": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "get repository",
+                "operationId": "RepositoryController.Get GetAllRepository",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/repository.Repository"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/repository/group/{username}/{name}": {
+            "delete": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "delete group repository",
+                "operationId": "RepositoryController.Delete  Repository",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "username",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "address",
+                        "description": "address of repository",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/repository/user/{username}": {
+            "get": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "get user repository",
+                "operationId": "RepositoryController.Get  GetUserRepository",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/repository.Repository"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/repository/{id}": {
+            "get": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "get repository by uid",
+                "operationId": "RepositoryController.Get",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/repository.Repository"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "repository"
+                ],
+                "description": "update the repository",
+                "operationId": "RepositoryController.Update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for repository content",
+                        "required": true
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/repository.Repository"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/role/": {
+            "get": {
+                "tags": [
+                    "role"
+                ],
+                "description": "get role list",
+                "operationId": "RoleController.Get Group Role List info",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/role.Role"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get all cluster admin users",
+                "operationId": "UserController.GetAdminUsers",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/user.ShowUser"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "create users and add to group",
+                "operationId": "UserController.Create User",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.UserWithGroup"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} user.User.Id"
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/active/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Active the user",
+                "operationId": "UserController.Active",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to active",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/deactive/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "deactive the user",
+                "operationId": "UserController.Deactive",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to deactive",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/groupadmin": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get all users",
+                "operationId": "UserController.GetUsers",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/user.ShowUser"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/user/grouprole": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get user group and role by token",
+                "operationId": "UserController.GetGroupRole",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/user.UserGroupRole"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Logs user into the system",
+                "operationId": "UserController.Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login info of user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.LoginInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/license.Token"
+                        }
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Logs out current logged in user session",
+                "operationId": "UserController.logout",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "The token of user you want to logout",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.LogoutToken"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} token"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/unlock/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Active the user",
+                "operationId": "UserController.Unlock user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to unlock",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/verify/basic/{basicauth}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "verify user basic auth to check login status",
+                "operationId": "UserController.verify basic auth",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "basicauth",
+                        "description": "basic auth info of user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    },
+                    "401": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/verify/{token}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "verify user token to check login status",
+                "operationId": "UserController.verify token",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "token of user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    },
+                    "401": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/version": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Send verify code for reset password",
+                "operationId": "UserController.Send verify code for reset password",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "username",
+                        "description": "The username of the user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "string"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "reset user password",
+                "operationId": "UserController.reset user password",
+                "responses": {
+                    "200": {
+                        "description": "string"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/user/withgroup": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get all users data with group field",
+                "operationId": "UserController.GetAllUserWithGroup",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "login Token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/user.UserWithGroup"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/withgroup/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get user data with group field by uid",
+                "operationId": "UserController.GetUserWithGroup",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "user ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "login Token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.UserWithGroup"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get user by uid",
+                "operationId": "UserController.Get",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.ShowUser"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "description": "update the user",
+                "operationId": "UserController.Update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.UserWithGroup"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "description": "delete the user",
+                "operationId": "UserController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to delete",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/{id}/password": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "description": "update the user's password",
+                "operationId": "UserController.UpdatePassword",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user to modify password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.PasswordModify"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/user/{id}/profile": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "description": "update the user's profile",
+                "operationId": "UserController.UpdateProfile",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The uid you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user to modify profile",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.PasswordModify"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "404": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/usergroup/": {
+            "get": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "Gets all the user groups that the user belongs to",
+                "operationId": "UserGroupController.Gets all the user groups that the user belongs to",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/usergroup.UserGroup"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "add usergroup",
+                "operationId": "UserGroupController.Add UserGroup",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "usergroup to add",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/usergroup.UserGroup"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/usergroup/user/{uid}": {
+            "get": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "get user's groups",
+                "operationId": "UserGroupController.Get User's Group",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/usergroup/{groupname}": {
+            "get": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "get usergroup info",
+                "operationId": "UserGroupController.Get UserGroup",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/usergroup.UserGroup"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "modify usergroup",
+                "operationId": "UserGroupController.Modify UserGroup",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "usergroup to modify",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/usergroup.UserGroup"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "delete usergroup",
+                "operationId": "UserGroupController.Delete UserGroup",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/usergroup/{groupname}/user": {
+            "get": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "get all user of a group",
+                "operationId": "UserGroupController.Get All UserGroup User",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/usergroup.GroupUser"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "add user to usergroup",
+                "operationId": "UserGroupController.Add User to UserGroup",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "to add user to group",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/usergroup.GroupUserAdd"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        },
+        "/usergroup/{groupname}/user/{uid}": {
+            "get": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "get user of a usergroup",
+                "operationId": "UserGroupController.Get Group User",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/usergroup.GroupUser"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "modify user role in group",
+                "operationId": "UserGroupController.Modify Group User",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "to add user to group",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/usergroup.GroupUserAdd"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usergroup"
+                ],
+                "description": "delete user of a group",
+                "operationId": "UserGroupController.Delete Group User",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "groupname",
+                        "description": "group name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "token",
+                        "description": "The login token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseMsg"
+                        }
+                    },
+                    "403": {
+                        "description": "{object} models.ErrorMsg"
+                    },
+                    "500": {
+                        "description": "{object} models.ErrorMsg"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        ".RawMessage": {
+            "type": "object"
+        },
+        "ability.Ability": {
+            "title": "Ability",
+            "type": "object",
+            "properties": {
+                "object": {
+                    "type": "string"
+                },
+                "operate": {}
+            }
+        },
+        "ability.RoleAbility": {
+            "title": "RoleAbility",
+            "type": "object",
+            "properties": {
+                "ability": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ability.Ability"
+                    }
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.LdapUser": {
+            "title": "LdapUser",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "isInSystem": {
+                    "type": "boolean"
+                },
+                "isadmin": {
+                    "type": "boolean"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.LdapUserData": {
+            "title": "LdapUserData",
+            "type": "object",
+            "properties": {
+                "group": {},
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/auth.LdapUser"
+                    }
+                }
+            }
+        },
+        "auth.LdapVerifyData": {
+            "title": "LdapVerifyData",
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.LdapVerifyResult": {
+            "title": "LdapVerifyResult",
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "auth.SystemAuthConfig": {
+            "title": "SystemAuthConfig",
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.SystemLdapConfig": {
+            "title": "SystemLdapConfig",
+            "type": "object",
+            "properties": {
+                "adminFileter": {
+                    "type": "string"
+                },
+                "attrEmail": {
+                    "type": "string"
+                },
+                "attrInBind": {
+                    "type": "boolean"
+                },
+                "attrName": {
+                    "type": "string"
+                },
+                "attrSurName": {
+                    "type": "string"
+                },
+                "attrUsername": {
+                    "type": "string"
+                },
+                "bindDN": {
+                    "type": "string"
+                },
+                "bindPassword": {
+                    "type": "string"
+                },
+                "filter": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "security": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "skipVerfiy": {
+                    "type": "boolean"
+                },
+                "useBindDN": {
+                    "type": "boolean"
+                },
+                "userBase": {
+                    "type": "string"
+                },
+                "userDN": {
+                    "type": "string"
+                }
+            }
+        },
+        "license.ClaimSet": {
+            "title": "ClaimSet",
+            "type": "object",
+            "properties": {
+                "access": {
+                    "$ref": "#/definitions/license.ResourceLimit"
+                },
+                "aud": {
+                    "type": "string"
+                },
+                "exp": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "iat": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "iss": {
+                    "type": "string"
+                },
+                "jti": {
+                    "type": "string"
+                },
+                "nbf": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sub": {
+                    "type": "string"
+                }
+            }
+        },
+        "license.Header": {
+            "title": "Header",
+            "type": "object",
+            "properties": {
+                "alg": {
+                    "type": "string"
+                },
+                "jwk": {
+                    "$ref": "#/definitions/json.RawMessage"
+                },
+                "kid": {
+                    "type": "string"
+                },
+                "typ": {
+                    "type": "string"
+                },
+                "x5c": {}
+            }
+        },
+        "license.ResourceLimit": {
+            "title": "ResourceLimit",
+            "type": "object"
+        },
+        "license.Token": {
+            "title": "Token",
+            "type": "object",
+            "properties": {
+                "Claims": {
+                    "$ref": "#/definitions/license.ClaimSet"
+                },
+                "Header": {
+                    "$ref": "#/definitions/license.Header"
+                },
+                "Raw": {
+                    "type": "string"
+                },
+                "Signature": {}
+            }
+        },
+        "models.ResponseMsg": {
+            "title": "ResponseMsg",
+            "type": "object",
+            "properties": {
+                "error_code": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "error_msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "registry.Registry": {
+            "title": "Registry",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "belong": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "extend": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "updateTime": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "repository.Repository": {
+            "title": "Repository",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updateTime": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "role.Role": {
+            "title": "Role",
+            "type": "object",
+            "properties": {
+                "cn_name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.LoginInfo": {
+            "title": "LoginInfo",
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.LogoutToken": {
+            "title": "LogoutToken",
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.PasswordModify": {
+            "title": "PasswordModify",
+            "type": "object",
+            "properties": {
+                "oldpassword": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.Profile": {
+            "title": "Profile",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.ShowUser": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "licensed": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "profile": {
+                    "$ref": "#/definitions/user.Profile"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "systemProfile": {
+                    "$ref": "#/definitions/user.SystemProfile"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.SystemProfile": {
+            "title": "SystemProfile",
+            "type": "object",
+            "properties": {
+                "authType": {
+                    "type": "string"
+                },
+                "createTime": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "isLocked": {
+                    "type": "boolean"
+                },
+                "isValid": {
+                    "type": "boolean"
+                },
+                "lastLogin": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "lockedTime": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "loginFailCount": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "user.User": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "licensed": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "profile": {
+                    "$ref": "#/definitions/user.Profile"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "systemProfile": {
+                    "$ref": "#/definitions/user.SystemProfile"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.UserGroupRole": {
+            "title": "UserGroupRole",
+            "type": "object",
+            "properties": {
+                "group": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.UserWithGroup": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "group": {},
+                "id": {
+                    "type": "string"
+                },
+                "licensed": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "profile": {
+                    "$ref": "#/definitions/user.Profile"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "systemProfile": {
+                    "$ref": "#/definitions/user.SystemProfile"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "usergroup.GroupUser": {
+            "title": "GroupUser",
+            "type": "object",
+            "properties": {
+                "role": {
+                    "$ref": "#/definitions/role.Role"
+                },
+                "user": {
+                    "$ref": "#/definitions/user.ShowUser"
+                }
+            }
+        },
+        "usergroup.GroupUserAdd": {
+            "title": "GroupUserAdd",
+            "type": "object",
+            "properties": {
+                "role": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "usergroup.UserGroup": {
+            "title": "UserGroup",
+            "type": "object",
+            "properties": {
+                "createtime": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "describe": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "usercount": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operations about Users\n"
+        },
+        {
+            "name": "auth",
+            "description": "AuthController Operations about Auth\n"
+        },
+        {
+            "name": "role",
+            "description": "Operations about Role\n"
+        },
+        {
+            "name": "usergroup",
+            "description": "UserGroupController Operations about UserGroup\n"
+        },
+        {
+            "name": "registry",
+            "description": "Operations about Registry\n"
+        },
+        {
+            "name": "repository",
+            "description": "Operations about Repository\n"
+        },
+        {
+            "name": "license",
+            "description": "Operations about License\n"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+- !!python/unicode 'apiVersion': !!python/unicode 'extensions/v1beta1'
+  !!python/unicode 'kind': !!python/unicode 'Deployment'
+  !!python/unicode 'metadata':
+    !!python/unicode 'labels': {!!python/unicode 'app': !!python/unicode 'wordpress'}
+    !!python/unicode 'name': !!python/unicode 'wordpress'
+  !!python/unicode 'spec':
+    !!python/unicode 'strategy': {!!python/unicode 'type': !!python/unicode 'Recreate'}
+    !!python/unicode 'template':
+      !!python/unicode 'metadata':
+        !!python/unicode 'labels': {!!python/unicode 'app': !!python/unicode 'wordpress',
+          !!python/unicode 'tier': !!python/unicode 'frontend'}
+      !!python/unicode 'spec':
+        !!python/unicode 'containers':
+        - !!python/unicode 'env':
+          - {!!python/unicode 'name': !!python/unicode 'WORDPRESS_DB_HOST', !!python/unicode 'value': !!python/unicode '127.0.0.1'}
+          - {!!python/unicode 'name': !!python/unicode 'WORDPRESS_DB_USER', !!python/unicode 'value': !!python/unicode 'root'}
+          - {!!python/unicode 'name': !!python/unicode 'WORDPRESS_DB_PASSWORD', !!python/unicode 'value': !!python/unicode '123456'}
+          - {!!python/unicode 'name': !!python/unicode 'WORDPRESS_DB_NAME', !!python/unicode 'value': !!python/unicode 'wordpress'}
+          !!python/unicode 'image': !!python/unicode '%%WordpressImage%%:%%WordpressVersion%%'
+          !!python/unicode 'name': !!python/unicode 'wordpress'
+          !!python/unicode 'ports':
+          - {!!python/unicode 'containerPort': 80}
+        - !!python/unicode 'env':
+          - {!!python/unicode 'name': !!python/unicode 'MYSQL_ROOT_PASSWORD', !!python/unicode 'value': !!python/unicode '123456'}
+          !!python/unicode 'image': !!python/unicode '%%MysqlImage%%:%%MysqlVersion%%'
+          !!python/unicode 'name': !!python/unicode 'mysql'
+          !!python/unicode 'ports':
+          - {!!python/unicode 'containerPort': 3306}
+- !!python/unicode 'apiVersion': !!python/unicode 'v1'
+  !!python/unicode 'kind': !!python/unicode 'Service'
+  !!python/unicode 'metadata':
+    !!python/unicode 'labels': {!!python/unicode 'app': !!python/unicode 'wordpress'}
+    !!python/unicode 'name': !!python/unicode 'wordpress'
+  !!python/unicode 'spec':
+    !!python/unicode 'ports':
+    - {!!python/unicode 'nodePort': 32006, !!python/unicode 'port': 80}
+    !!python/unicode 'selector': {!!python/unicode 'app': !!python/unicode 'wordpress',
+      !!python/unicode 'tier': !!python/unicode 'frontend'}
+    !!python/unicode 'type': !!python/unicode 'NodePort'

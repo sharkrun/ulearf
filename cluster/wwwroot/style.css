@@ -1,0 +1,30 @@
+html,body {
+    font-family: helvetica, sans-serif, arial;
+    font-size: 1em;
+    color: #111;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+#terminal-container {
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    margin: 0 auto;
+    padding: 2px;
+}
+
+#terminal-container .terminal {
+    background-color: #111;
+    color: #fafafa;
+    padding: 2px;
+}
+.hidden-option{
+    display: none;
+}
+.xterm-title{
+    display: none;
+}

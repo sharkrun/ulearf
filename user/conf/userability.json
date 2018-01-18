@@ -1,0 +1,23 @@
+[
+{
+	"object":"user","operate":["create","delete","get","update","active","deactive"]
+},
+{
+	"object":"user-auth","operate":["login","logout","verify"]
+},
+{
+	"object":"role","operate":["get","update"]
+},
+{
+	"object":"ability","operate":["get"]
+},
+{
+	"object":"projuser","operate":["getbyproj","getbyuser","getbyprojuser","addtoproj","delfromproj","updaterole"]
+},
+{
+	"object":"sysconfig-auth","operate":["get","update"]
+},
+{
+	"object":"sysconfig-auth-ldap","operate":["get","update","test"]
+}
+]

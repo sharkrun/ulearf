@@ -1,0 +1,53 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Library           RequestsLibrary
+
+*** Variables ***
+${HOST1}          http://192.168.14.166:32384
+${HOST}           http://127.0.0.1:8881
+${HOST3}          http://192.168.15.181:8884
+${test_repository_id}    mysql
+${newRecord}      {"name":"mysql","type":"github","address":"192.168.19.250","token":"jack"}
+${updateRecord}    {"name":"mysql2","type":"github","address":"192.168.19.250","token":"jack"}
+${repository_id}    Repo20170706141811Jogd
+&{headers}        token=1234567890987654321
+
+*** Test Cases ***
+CreateSession
+    Create Session    ServerSession    ${HOST}
+
+Create
+    ${resp}=    Post Request    ServerSession    /v1/repository/add    ${newRecord}    /    ${headers}
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+Read
+    ${resp}=    Get Request    ServerSession    /v1/repository/${repository_id}    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+
+Update
+    ${resp}=    Put Request    ServerSession    /v1/repository/${repository_id}    ${updateRecord}    none    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0
+
+readlist
+    ${resp}=    Get Request    ServerSession    /v1/repository    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+
+readAll
+    ${resp}=    Get Request    ServerSession    /v1/repository/all    ${headers}
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+
+Delete
+    ${resp}=    Delete Request    ServerSession    /v1/repository/${repository_id}    \    \    ${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To Json    ${resp.text}
+    Should Be Equal As Integers    ${result['error_code']}    0

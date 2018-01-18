@@ -1,0 +1,4 @@
+# config.conf： 生产环境上用的配置文件. 该项目的配置文件，包括数据库etcd的配置，端口号等信息
+# config.conf.1: 本地测试用的配置文件
+# log.conf : python中logging模块的配置文件  其中level=DEBUG表示DEBUG级别以上才打印到文件中，本地调试时候，可以将level设置成DEBUG，
+        那么代码中所有的调试日志都会打印到相应的文件中，生产环境中将其设置成level=INFO

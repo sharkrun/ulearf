@@ -1,0 +1,48 @@
+FROM centos:latest
+
+MAINTAINER "UFleet platform develop"
+
+RUN yum -y install swig \
+    gcc \
+    gdb \
+    libcurl-devel \
+    python-devel \
+    libxml2-devel \
+    libxslt-devel \
+    libffi-devel \
+    openssl-devel
+
+WORKDIR /opt
+
+COPY get-pip.py /opt/get-pip.py
+RUN chmod +x /opt/get-pip.py && python get-pip.py
+
+RUN pip install --no-cache-dir zope.interface==4.2.0 \
+    Twisted==16.2.0 \
+    pyasn1==0.1.9
+
+
+RUN pip install --no-cache-dir \
+    cryptography==1.4 \
+    pycrypto==2.6.1 \
+    M2Crypto==0.24.0
+
+RUN pip install --no-cache-dir  python-keyczar==0.716
+
+RUN pip install --no-cache-dir  python-etcd==0.4.4
+
+RUN pip install --no-cache-dir  urllib3==1.21.1
+
+RUN pip install --no-cache-dir  PyYAML==3.12
+
+RUN pip install --no-cache-dir  paramiko==2.1.2
+
+RUN pip install --no-cache-dir  txsockjs==1.2.2
+
+RUN pip install --no-cache-dir  requests==2.13.0
+
+RUN pip install --no-cache-dir  pykube==0.15.0
+
+RUN pip install --no-cache-dir  etcd3==0.6.2
+
+RUN pip install --no-cache-dir  gevent==1.2.2

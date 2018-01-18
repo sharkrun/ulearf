@@ -1,0 +1,51 @@
+*** Settings ***
+Documentation     测试用户模块中API对用户操作功能
+Library           Collections
+Library           RequestsLibrary
+
+*** Variables ***
+${HOST}           http://127.0.0.1:8881
+&{AddUser}        username=test-user-robot    password=123456
+&{Superadmin}     username=superadmin    password=superadmin
+${SessionName}    user-server-api
+${SuperadminToken}    000000
+${AddUserID}      ${EMPTY}
+
+*** Test Cases ***
+user-create-delete
+    Log    ${SuperadminToken}
+    Create Session    ${SessionName}    ${HOST}
+    ${header}=    Login Superadmin
+    ${adduser}=    Evaluate    json.dumps(&{AddUser})    json
+    ${resp}=    Post Request    ${SessionName}    /v1/user    ${adduser}    None    ${header}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${AddUserID}=    Set variable    ${resp.json()["id"]}
+    Log    ${AddUserID}
+    ${resp}=    Delete Request    ${SessionName}    /v1/user/${AddUserID}    None    None    ${header}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp.json()}
+
+user-get
+    Log    ${SuperadminToken}
+    Create Session    ${SessionName}    ${HOST}
+    ${header}=    Login Superadmin
+    ${resp}=    Get Request    ${SessionName}    /v1/user/    ${header}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp.json()}
+
+*** Keywords ***
+Login Superadmin
+    Log    Login start
+    ${loginData}=    Evaluate    json.dumps(&{Superadmin})    json
+    Log    ${loginData}
+    ${resp}=    Post Request    ${SessionName}    /v1/user/login    ${loginData}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp}
+    ${uid}=    Set variable    ${resp.json()["uid"]}
+    ${token}=    Set variable    ${resp.json()["token"]}
+    Log    ${uid} ${token}
+    ${SuperadminToken}=    Set variable    ${token}
+    ${SuperadminHeader}=    Create Dictionary
+    Set To Dictionary    ${SuperadminHeader}    token=${token}
+    Log    ${SuperadminHeader}
+    [Return]    ${SuperadminHeader}

@@ -1,0 +1,33 @@
+FROM 192.168.18.250:5002/ufleet-build/python:dev-16-3
+# FROM 192.168.18.250:5002/ufleet-build/cluster:env-16-2
+MAINTAINER "UFleet platform cluster"
+
+USER root
+
+############################################################
+# Setup environment variables
+############################################################
+ENV WORK_DIR /opt
+ENV START_SCRIPT /opt/start.sh
+# ENV MODULE_VERSION #MODULE_VERSION#
+
+############################################################
+
+# Create dirs
+RUN mkdir -p  $WORK_DIR/source
+
+# Add dirs
+ADD src-pyc $WORK_DIR/source
+#ADD etcd $WORK_DIR/etcd
+ADD wwwroot $WORK_DIR/wwwroot
+
+ADD start.sh $START_SCRIPT
+RUN chmod +x $START_SCRIPT && chmod +x $WORK_DIR/source/*.sh
+
+# Let people know how this was built
+ADD Dockerfile /root/Dockerfile
+
+
+EXPOSE 8885
+
+CMD $START_SCRIPT
