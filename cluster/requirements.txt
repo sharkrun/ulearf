@@ -1,4 +1,4 @@
-Twisted==17.1.0
+Twisted==19.7.0
 pyasn1==0.1.9
 zope.interface==4.2.0
 pycrypto==2.6.1
