@@ -4,7 +4,7 @@ zope.interface==4.2.0
 pycrypto==2.6.1
 python-keyczar==0.716
 APScheduler==3.2.0
-cryptography==1.4
+cryptography==3.2
 M2Crypto==0.24.0
 urllib3==1.20
 python-etcd==0.4.4
