@@ -6,7 +6,7 @@ python-keyczar==0.716
 APScheduler==3.2.0
 cryptography==1.4
 M2Crypto==0.24.0
-urllib3==1.20
+urllib3==1.26.5
 python-etcd==0.4.4
 PyYAML==3.12
 pykube==0.15.0
