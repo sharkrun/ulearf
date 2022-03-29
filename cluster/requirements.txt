@@ -10,5 +10,5 @@ urllib3==1.20
 python-etcd==0.4.4
 PyYAML==3.12
 pykube==0.15.0
-paramiko==2.1.2
+paramiko==2.10.1
 txsockjs==1.2.2
